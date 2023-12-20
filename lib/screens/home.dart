@@ -1,9 +1,14 @@
 
+import 'package:adhan/adhan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class home extends StatelessWidget {
 
+
+  var myCoordinates = Coordinates(37.421998333333335 , -122.084); // Replace with your own location lat, lng.
+  final params = CalculationMethod.muslim_world_league.getParameters();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +47,7 @@ class home extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('Fajr ', style: TextStyle(fontSize: 30),),
-                  Text('5:20 AM', style: TextStyle(fontSize: 30 , color: Colors.grey),),
+                  Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates, params).fajr).toString() , style: TextStyle(fontSize: 30 , color: Colors.grey),),
                 ],
               ),
               SizedBox(

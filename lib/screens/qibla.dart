@@ -35,7 +35,7 @@ class _qiblaState extends State<qibla> {
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      child: Image.asset('assets/prayer.png' ,fit: BoxFit.fill,),
+                      child: Image.asset('assets/pointer.jpg' ,fit: BoxFit.fill,),
                     ),
 
                     Positioned(
@@ -46,7 +46,7 @@ class _qiblaState extends State<qibla> {
                       child: AnimatedRotation(
                           turns: snapshot?.data?.qiblahOffset??0/360,
                           duration: Duration(milliseconds: 400),
-                          child: Image.asset('assets/prayer.png',fit: BoxFit.fill,)),
+                          child: Image.asset('assets/qibla.png',fit: BoxFit.fill,)),
                     ),
 
 
