@@ -22,4 +22,12 @@ class dioHelper{
     );
   }
 
+  static Future<Response>getAyat({
+  String url,
+})async{
+    return await dio.get(
+      url
+    );
+  }
+
 }

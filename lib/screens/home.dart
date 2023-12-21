@@ -1,14 +1,29 @@
 
 import 'package:adhan/adhan.dart';
+import 'package:elmoazen/component.dart';
+import 'package:elmoazen/component.dart';
+import 'package:elmoazen/component.dart';
+import 'package:elmoazen/cubit.dart';
+import 'package:elmoazen/notification.dart';
+import 'package:elmoazen/shared_pref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:intl/intl.dart';
+import 'package:jhijri/_src/_jHijri.dart';
 
-class home extends StatelessWidget {
+
+class home extends StatefulWidget {
 
 
-  var myCoordinates = Coordinates(37.421998333333335 , -122.084); // Replace with your own location lat, lng.
-  final params = CalculationMethod.muslim_world_league.getParameters();
+  @override
+  State<home> createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+  static var myCoordinates = Coordinates(latitude , longitude);
+
+  static final params = CalculationMethod.egyptian.getParameters();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +37,9 @@ class home extends StatelessWidget {
               Row(
                 children: [
                   Expanded(child: Text("Prayer" , style: TextStyle(fontSize: 30),)),
-                  IconButton(onPressed: (){},
+                  IconButton(onPressed: (){
+
+                  },
                       icon: Icon(Icons.dark_mode_rounded),
                   ),
                   IconButton(onPressed: (){},
@@ -33,11 +50,14 @@ class home extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
+              Text('Next Prayer ' , style: TextStyle(fontSize: 15),),
+              SizedBox(
+                height: 15,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Next Prayer in ' , style: TextStyle(fontSize: 15),),
-                  Text('7:43:49' , style: TextStyle(color: Colors.grey),),
+                  prayNameHead[0],
                 ],
               ),
               SizedBox(
@@ -46,32 +66,49 @@ class home extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Fajr ', style: TextStyle(fontSize: 30),),
-                  Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates, params).fajr).toString() , style: TextStyle(fontSize: 30 , color: Colors.grey),),
+                  Text(JHijri.now().year.toString()+' '),
+                  Text(JHijri.now().monthName.toString()+' '),
+                  Text(JHijri.now().day.toString()),
                 ],
               ),
               SizedBox(
                 height: 15,
               ),
-              Text('jumada || 5,1445 AH'),
-              SizedBox(
-                height: 15,
-              ),
-              Text('Alexandria'),
+              Text(city),
 
               SizedBox(
                 height: 10,
               ),
 
               Expanded(
-                child: GridView.count(
-                  physics: const BouncingScrollPhysics(),
-                  crossAxisCount: 2,
-                  childAspectRatio: 1,
-                  children:
-                    List.generate(5, (index) => ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Card(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(onPressed: (){
+                                    NotificationService().showNotification(title: 'صلاه الفجر' ,
+                                        body: 'الصلاه خيرا من النوم');
+                                  },
+                                      icon: Icon(Icons.alarm)
+                                  ),
+                                ],
+                              ),
+                              prayName[0],
+                              Text('ركعتا الفجر خير من الدنيا و ما فيها',style: TextStyle(color: Colors.grey, fontSize: 15),),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Card(
                         child: Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: Column(
@@ -86,19 +123,78 @@ class home extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Text('Fajr' , style: TextStyle(fontSize: 20),),
-                              SizedBox(height: 5,),
-                              Text('5:20 AM',style: TextStyle(fontSize: 20),),
-                              SizedBox(
-                                height: 5,
-                              ),
+                              prayName[1],
                               Text('ركعتا الفجر خير من الدنيا و ما فيها',style: TextStyle(color: Colors.grey, fontSize: 15),),
                             ],
                           ),
                         ),
                       ),
-                    ),
-                    ),
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(onPressed: (){},
+                                      icon: Icon(Icons.alarm)
+                                  ),
+                                ],
+                              ),
+                              prayName[2],
+                              Text('ركعتا الفجر خير من الدنيا و ما فيها',style: TextStyle(color: Colors.grey, fontSize: 15),),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(onPressed: (){},
+                                      icon: Icon(Icons.alarm)
+                                  ),
+                                ],
+                              ),
+                              prayName[3],
+                              Text('ركعتا الفجر خير من الدنيا و ما فيها',style: TextStyle(color: Colors.grey, fontSize: 15),),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(onPressed: (){},
+                                      icon: Icon(Icons.alarm)
+                                  ),
+                                ],
+                              ),
+                              prayName[4],
+                              Text('ركعتا الفجر خير من الدنيا و ما فيها',style: TextStyle(color: Colors.grey, fontSize: 15),),
+
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -107,4 +203,114 @@ class home extends StatelessWidget {
       ),
     );
   }
+
+  List<Widget>prayName = [
+    Row(
+    children: [
+      Text('Fajr' , style: TextStyle(fontSize: 20),),
+      SizedBox(width: 5,),
+      Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates , params).fajr),style: TextStyle(fontSize: 20),),
+      SizedBox(
+        height: 5,
+      ),
+    ],
+  ),
+    Row(
+    children: [
+      Text('Dhuhr' , style: TextStyle(fontSize: 20),),
+      SizedBox(width: 5,),
+      Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates , params).dhuhr),style: TextStyle(fontSize: 20),),
+      SizedBox(
+        height: 5,
+      ),
+    ],
+  ),
+    Row(
+    children: [
+      Text('Asr' , style: TextStyle(fontSize: 20),),
+      SizedBox(width: 5,),
+      Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates , params).asr),style: TextStyle(fontSize: 20),),
+      SizedBox(
+        height: 5,
+      ),
+    ],
+  ),
+    Row(
+    children: [
+      Text('Maghrib' , style: TextStyle(fontSize: 20),),
+      SizedBox(width: 5,),
+      Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates , params).maghrib),style: TextStyle(fontSize: 20),),
+      SizedBox(
+        height: 5,
+      ),
+    ],
+  ),
+    Row(
+    children: [
+      Text('Isha' , style: TextStyle(fontSize: 20),),
+      SizedBox(width: 5,),
+      Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates , params).isha),style: TextStyle(fontSize: 20),),
+      SizedBox(
+        height: 5,
+      ),
+    ],
+  ),
+  ];
+
+  List<Widget>prayNameHead = [
+    Row(
+      children: [
+        Text('Fajr' , style: TextStyle(fontSize: 30),),
+        SizedBox(width: 5,),
+        Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates , params).fajr),style: TextStyle(fontSize: 30 , color: Colors.grey),),
+        SizedBox(
+          height: 5,
+        ),
+      ],
+    ),
+    Row(
+      children: [
+        Text('Dhuhr' , style: TextStyle(fontSize: 30),),
+        SizedBox(width: 5,),
+        Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates , params).dhuhr),style: TextStyle(fontSize: 30 , color: Colors.grey),),
+        SizedBox(
+          height: 5,
+        ),
+      ],
+    ),
+    Row(
+      children: [
+        Text('Asr' , style: TextStyle(fontSize: 30),),
+        SizedBox(width: 5,),
+        Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates , params).asr),style: TextStyle(fontSize: 30 , color: Colors.grey),),
+        SizedBox(
+          height: 5,
+        ),
+      ],
+    ),
+    Row(
+      children: [
+        Text('Maghrib' , style: TextStyle(fontSize: 30),),
+        SizedBox(width: 5,),
+        Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates , params).maghrib),style: TextStyle(fontSize: 30 , color: Colors.grey),),
+        SizedBox(
+          height: 5,
+        ),
+      ],
+    ),
+    Row(
+      children: [
+        Text('Isha' , style: TextStyle(fontSize: 30),),
+        SizedBox(width: 5,),
+        Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates , params).isha),style: TextStyle(fontSize: 30 , color: Colors.grey),),
+        SizedBox(
+          height: 5,
+        ),
+      ],
+    ),
+  ];
+
+
+
+
 }

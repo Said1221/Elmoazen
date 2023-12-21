@@ -1,13 +1,19 @@
 
+
+import 'package:al_quran/al_quran.dart';
 import 'package:elmoazen/dio_helper.dart';
+import 'package:elmoazen/screens/ayat.dart';
 import 'package:elmoazen/screens/home.dart';
 import 'package:elmoazen/screens/qibla.dart';
 import 'package:elmoazen/screens/quran.dart';
 import 'package:elmoazen/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'component.dart';
 
 class AppCubit extends Cubit<AppState>{
   AppCubit() : super (AppinitialState());
@@ -30,45 +36,51 @@ class AppCubit extends Cubit<AppState>{
   }
 
 
-  Future getPermission()async{
-   if(await Permission.location.serviceStatus.isEnabled){
-     var status = await Permission.location.status;
-     if(status.isGranted){
-       permission = true;
-     }
-     else{
-       Permission.location.request().then((value){
-         permission = (value == PermissionStatus.granted);
-       });
-     }
-   }
-  }
+  Future<Position>getCurrentAddress()async{
+    bool serviceEnable = await Geolocator.isLocationServiceEnabled();
+    if(!serviceEnable){
+      return Future.error('location error');
+    }
+    LocationPermission permission = await Geolocator.checkPermission();
+    if(permission == LocationPermission.denied){
+      permission = await Geolocator.requestPermission();
+      if(permission == LocationPermission.denied){
+        return Future.error('location permission are dened');
+      }
+    }
+
+    if(permission == LocationPermission.deniedForever){
+      return Future.error('location permission forever');
+    }
 
 
+    return await Geolocator.getCurrentPosition().then((value)async{
+      latitude = value.latitude;
+      longitude = value.longitude;
 
-  getCurentLocation() async {
-    LocationPermission permission;
+      List<Placemark> placemarks = await placemarkFromCoordinates(latitude , longitude);
+      city = placemarks[0].administrativeArea;
 
-    permission = await Geolocator.requestPermission();
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((value) async {
-          print(value);
+      emit(AppGetLocationSuccessState());
     });
+
   }
 
 
-  // getCurentAddress() async {
-  //   await getCurentLocation();
-  //   List<Placemark> placemarks =
-  //   await placemarkFromCoordinates(curentPos.latitude, curentPos.longitude);
-  //   Placemark place = placemarks[0];
-  //   if (mounted) {
-  //     setState(() {
-  //       curentAddress =
-  //       "${place.street!}, ${place.subAdministrativeArea!}, ${place.administrativeArea!}, ${place.country!}";
-  //     });
-  //   }
+
+
+
+  // void liveLocation(){
+  //   LocationSettings locationSettings = const LocationSettings(
+  //     accuracy: LocationAccuracy.high,
+  //     distanceFilter: 100,
+  //   );
+  //   Geolocator.getPositionStream(locationSettings: locationSettings).listen((Position position) {
+  //     latitude = position.latitude.toString();
+  //     longitude = position.longitude.toString();
+  //   });
   // }
+
 
 
   List<dynamic> allSurah = [];
@@ -78,9 +90,27 @@ class AppCubit extends Cubit<AppState>{
     ).then((value){
       emit(AppGetSurahSuccessState());
       allSurah = value.data['data'];
-      print(value.data);
+      // print(value.data);
     }).catchError((error){
       emit(AppGetSurahErrorState());
+      print(error.toString());
+    });
+  }
+
+
+  List<dynamic>ranAyats=[];
+  void getAyat(String num){
+    // Ayats = [];
+    dioHelper.getAyat(
+      url: 'v1/surah/${num}/ar.alafasy',
+    ).then((value){
+      Ayats = value.data['data']['ayahs'];
+      emit(AppGetAyatSuccessState());
+      for(int i = 0;i<value.data['data']['numberOfAyahs'];i++){
+        print(Ayats[i]['text']);
+      }
+    }).catchError((error){
+      emit(AppGetAyatErrorState());
       print(error.toString());
     });
   }

@@ -3,6 +3,7 @@
 import 'package:al_quran/al_quran.dart';
 import 'package:elmoazen/component.dart';
 import 'package:elmoazen/cubit.dart';
+import 'package:elmoazen/screens/ayat.dart';
 import 'package:elmoazen/state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,30 +55,37 @@ class _quranState extends State<quran> {
 
   Widget buildList(list) => Padding(
     padding: const EdgeInsets.all(8.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-            child: Text(list['numberOfAyahs'].toString())),
-        Expanded(
-          child: list['revelationType'] == 'Meccan' ? Image(image: AssetImage('assets/kaaba.png'),height: 20,)
-              : Image(image: AssetImage('assets/pngegg.png'),height: 20,)
-        ),
-        SizedBox(
-          width: 30,
-        ),
+    child: InkWell(
+      onTap: ()async{
+        num = list['number'].toString();
+        navigateTo(context, ayat());
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+              child: Text(list['numberOfAyahs'].toString())),
+          Expanded(
+            child: list['revelationType'] == 'Meccan' ? Image(image: AssetImage('assets/kaaba.png'),height: 20,)
+                : Image(image: AssetImage('assets/pngegg.png'),height: 20,)
+          ),
+          SizedBox(
+            width: 30,
+          ),
 
-        Expanded(
-          child: Text(list['englishName']),
-        ),
+          Expanded(
+            child: Text(list['englishName']),
+          ),
 
-        Expanded(
-          child: Text(list['name']),
-        ),
+          Expanded(
+            child: Text(list['name']),
+          ),
 
-        Text(list['number'].toString()),
-      ],
+          Text(list['number'].toString()),
+        ],
+      ),
     ),
   );
+
 
 }

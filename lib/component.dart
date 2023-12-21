@@ -1,11 +1,24 @@
+import 'dart:async';
+
+import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 
-String message;
-int detId;
-String title = '';
-Map<int , bool>favorite = {};
-Map<int , bool>cart = {};
-int num = 1;
+
+var num;
+List<dynamic>Ayats = [];
+var latitude;
+var longitude;
+var city;
+
+
+List<dynamic>prayers = [
+  PrayerTimes.today(Coordinates(31.0839595 , 29.7438707),CalculationMethod.egyptian.getParameters()).fajr,
+  PrayerTimes.today(Coordinates(31.0839595 , 29.7438707),CalculationMethod.egyptian.getParameters()).dhuhr,
+  PrayerTimes.today(Coordinates(31.0839595 , 29.7438707),CalculationMethod.egyptian.getParameters()).asr,
+  PrayerTimes.today(Coordinates(31.0839595 , 29.7438707),CalculationMethod.egyptian.getParameters()).maghrib,
+  PrayerTimes.today(Coordinates(31.0839595 , 29.7438707),CalculationMethod.egyptian.getParameters()).isha,
+];
+
 
 
 Widget myDivider() => Padding(
@@ -18,6 +31,7 @@ Widget myDivider() => Padding(
     color: Colors.grey[300],
   ),
 );
+
 
 void navigateTo(context , widget) => Navigator.push(
   context,
