@@ -9,6 +9,7 @@ List<dynamic>Ayats = [];
 var latitude;
 var longitude;
 var city;
+List<String>desc = [];
 
 
 List<dynamic>prayers = [

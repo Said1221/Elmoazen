@@ -31,10 +31,10 @@ class _qiblaState extends State<qibla> {
                 child: Stack(
                   children: [
                     Positioned(
-                      top: 0,
+                      top: 50,
                       left: 0,
                       right: 0,
-                      bottom: 0,
+                      bottom: 50,
                       child: Image.asset('assets/pointer.jpg' ,fit: BoxFit.fill,),
                     ),
 

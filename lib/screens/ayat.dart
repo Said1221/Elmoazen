@@ -40,9 +40,8 @@ class ayat extends StatelessWidget {
           textDirection: TextDirection.rtl,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            for(var i=0;i<Ayats.length;i++)
-              Text(Ayats[i]['text']),
-          ],
+              Text(desc.toString()),
+          ]
         ),
       )
     ),

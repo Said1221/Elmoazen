@@ -57,7 +57,22 @@ class _homeState extends State<home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  prayNameHead[0],
+                  if(PrayerTimes.today(Coordinates(latitude,longitude),CalculationMethod.egyptian.getParameters()).nextPrayer().name.toString() == "fajr")
+                      prayNameHead[0],
+
+                  if(PrayerTimes.today(Coordinates(latitude,longitude),CalculationMethod.egyptian.getParameters()).nextPrayer().name.toString() == "dhuhr")
+                    prayNameHead[1],
+
+                  if(PrayerTimes.today(Coordinates(latitude,longitude),CalculationMethod.egyptian.getParameters()).nextPrayer().name.toString() == "asr")
+                    prayNameHead[2],
+
+                  if(PrayerTimes.today(Coordinates(latitude,longitude),CalculationMethod.egyptian.getParameters()).nextPrayer().name.toString() == "maghrib")
+                    prayNameHead[3],
+
+                  if(PrayerTimes.today(Coordinates(latitude,longitude),CalculationMethod.egyptian.getParameters()).nextPrayer().name.toString() == "isha")
+                    prayNameHead[4],
+
+
                 ],
               ),
               SizedBox(

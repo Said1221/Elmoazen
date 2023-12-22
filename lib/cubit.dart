@@ -101,14 +101,16 @@ class AppCubit extends Cubit<AppState>{
   List<dynamic>ranAyats=[];
   void getAyat(String num){
     // Ayats = [];
+    desc = [];
     dioHelper.getAyat(
       url: 'v1/surah/${num}/ar.alafasy',
     ).then((value){
       Ayats = value.data['data']['ayahs'];
       emit(AppGetAyatSuccessState());
-      for(int i = 0;i<value.data['data']['numberOfAyahs'];i++){
-        print(Ayats[i]['text']);
+      for(int i = 1;i<value.data['data']['numberOfAyahs'];i++){
+        desc.add(Ayats[i]['text']+'\n');
       }
+      print(desc);
     }).catchError((error){
       emit(AppGetAyatErrorState());
       print(error.toString());
