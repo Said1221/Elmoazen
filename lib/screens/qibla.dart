@@ -31,11 +31,11 @@ class _qiblaState extends State<qibla> {
                 child: Stack(
                   children: [
                     Positioned(
-                      top: 50,
+                      top: 0,
                       left: 0,
                       right: 0,
-                      bottom: 50,
-                      child: Image.asset('assets/pointer.jpg' ,fit: BoxFit.fill,),
+                      bottom: 0,
+                      child: Image.asset('assets/qibla-compass.png' ,fit: BoxFit.fill,),
                     ),
 
                     Positioned(
@@ -46,7 +46,7 @@ class _qiblaState extends State<qibla> {
                       child: AnimatedRotation(
                           turns: snapshot?.data?.qiblahOffset??0/360,
                           duration: Duration(milliseconds: 400),
-                          child: Image.asset('assets/qibla.png',fit: BoxFit.fill,)),
+                          child: Image.asset('assets/pointer.png',fit: BoxFit.fill,)),
                     ),
 
 

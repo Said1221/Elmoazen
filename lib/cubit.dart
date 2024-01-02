@@ -5,7 +5,7 @@ import 'package:elmoazen/dio_helper.dart';
 import 'package:elmoazen/screens/ayat.dart';
 import 'package:elmoazen/screens/home.dart';
 import 'package:elmoazen/screens/qibla.dart';
-import 'package:elmoazen/screens/quran.dart';
+import 'package:elmoazen/screens/qurann.dart';
 import 'package:elmoazen/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +27,7 @@ class AppCubit extends Cubit<AppState>{
   List<Widget>screens = [
     qibla(),
     home(),
-    quran(),
+    qurann(),
   ];
 
   void onTapItem(int index){
@@ -98,19 +98,14 @@ class AppCubit extends Cubit<AppState>{
   }
 
 
-  List<dynamic>ranAyats=[];
-  void getAyat(String num){
-    // Ayats = [];
-    desc = [];
+
+  void getAyat(){
     dioHelper.getAyat(
       url: 'v1/surah/${num}/ar.alafasy',
     ).then((value){
-      Ayats = value.data['data']['ayahs'];
+      ayaName = value.data['data']['name'];
       emit(AppGetAyatSuccessState());
-      for(int i = 1;i<value.data['data']['numberOfAyahs'];i++){
-        desc.add(Ayats[i]['text']+'\n');
-      }
-      print(desc);
+        print(ayaName);
     }).catchError((error){
       emit(AppGetAyatErrorState());
       print(error.toString());

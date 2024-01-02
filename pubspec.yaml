@@ -40,7 +40,6 @@ dependencies:
   flutter_qiblah: ^2.1.0
   permission_handler: ^11.0.1
   smooth_compass: ^2.0.17
-  quran: ^1.2.3
   al_quran: ^0.1.1+5
   dio: ^5.4.0
   adhan: ^2.0.0+1
@@ -54,6 +53,8 @@ dependencies:
   flutter_timer_countdown: ^1.0.7
   jhijri: ^0.0.4
   flutter_local_notifications: ^16.2.0
+  audioplayers: ^4.1.0
+  quran: ^1.2.3
 
 dev_dependencies:
   flutter_test:
@@ -85,6 +86,8 @@ flutter:
     - assets/qibla.png
     - assets/pngegg.png
     - android\app\src\main\res\drawable\kaaba.png
+    - assets/pointer.png
+    - assets/qibla-compass.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

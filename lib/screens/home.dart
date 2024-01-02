@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:adhan/adhan.dart';
 import 'package:elmoazen/component.dart';
 import 'package:elmoazen/component.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:intl/intl.dart';
 import 'package:jhijri/_src/_jHijri.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 
 
 class home extends StatefulWidget {
@@ -51,6 +54,27 @@ class _homeState extends State<home> {
                 height: 20,
               ),
               Text('Next Prayer ' , style: TextStyle(fontSize: 15),),
+
+              TimerCountdown(
+                format: CountDownTimerFormat.hoursMinutesSeconds,
+                endTime:
+                // DateTime.now().add(
+                //   Duration(
+                //     days: 0,
+                //     hours: 0,
+                //     minutes: 0,
+                //     seconds: 20,
+                //   ),
+                // ),
+
+
+                PrayerTimes.today(myCoordinates, params).isha,
+                onEnd: (){
+                  // NotificationService().showNotification(title: 'صلاه الفجر' ,
+                  //     body: 'الصلاه خيرا من النوم');
+                },
+              ),
+
               SizedBox(
                 height: 15,
               ),
@@ -58,7 +82,7 @@ class _homeState extends State<home> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if(PrayerTimes.today(Coordinates(latitude,longitude),CalculationMethod.egyptian.getParameters()).nextPrayer().name.toString() == "fajr")
-                      prayNameHead[0],
+                    prayNameHead[0],
 
                   if(PrayerTimes.today(Coordinates(latitude,longitude),CalculationMethod.egyptian.getParameters()).nextPrayer().name.toString() == "dhuhr")
                     prayNameHead[1],
@@ -71,6 +95,18 @@ class _homeState extends State<home> {
 
                   if(PrayerTimes.today(Coordinates(latitude,longitude),CalculationMethod.egyptian.getParameters()).nextPrayer().name.toString() == "isha")
                     prayNameHead[4],
+
+                  if(PrayerTimes.today(Coordinates(latitude,longitude),CalculationMethod.egyptian.getParameters()).nextPrayer().name.toString() == "none")
+                    Row(
+                      children: [
+                        Text('Fajr' , style: TextStyle(fontSize: 30),),
+                        SizedBox(width: 5,),
+                        Text(DateFormat().add_jm().format(PrayerTimes.today(myCoordinates , params).fajr),style: TextStyle(fontSize: 30 , color: Colors.grey),),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
 
 
                 ],
@@ -112,6 +148,7 @@ class _homeState extends State<home> {
                                   IconButton(onPressed: (){
                                     NotificationService().showNotification(title: 'صلاه الفجر' ,
                                         body: 'الصلاه خيرا من النوم');
+                                    print(TimeOfDay.now().toString());
                                   },
                                       icon: Icon(Icons.alarm)
                                   ),

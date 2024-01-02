@@ -4,8 +4,8 @@ import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 
 
-var num;
-List<dynamic>Ayats = [];
+int num;
+String ayaName;
 var latitude;
 var longitude;
 var city;

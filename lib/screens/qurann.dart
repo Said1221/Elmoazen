@@ -1,5 +1,4 @@
 
-
 import 'package:al_quran/al_quran.dart';
 import 'package:elmoazen/component.dart';
 import 'package:elmoazen/cubit.dart';
@@ -10,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran/quran_text.dart';
 
-class quran extends StatefulWidget {
+class qurann extends StatefulWidget {
 
 
   @override
-  State<quran> createState() => _quranState();
+  State<qurann> createState() => _qurannState();
 }
 
-class _quranState extends State<quran> {
+class _qurannState extends State<qurann> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -57,7 +56,9 @@ class _quranState extends State<quran> {
     padding: const EdgeInsets.all(8.0),
     child: InkWell(
       onTap: ()async{
-        num = list['number'].toString();
+        num = list['number'];
+        AppCubit().getAyat();
+        print(num.toString());
         navigateTo(context, ayat());
       },
       child: Row(
