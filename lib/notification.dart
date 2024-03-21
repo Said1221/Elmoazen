@@ -14,7 +14,7 @@ class NotificationService{
         requestAlertPermission: true,
         requestBadgePermission: true,
         requestSoundPermission: true,
-        onDidReceiveLocalNotification: (int id , String title,String body,String payload)async{});
+        onDidReceiveLocalNotification: (int ? id , String? title,String? body,String? payload)async{});
 
     var initializationSetting = InitializationSettings(
       android: initializationSettingsAndroid , iOS: initializationSettingIOS);
@@ -34,7 +34,7 @@ class NotificationService{
       iOS: DarwinNotificationDetails());
   }
 
-  Future showNotification({int id = 0 , String title , String body , String payload})async{
+  Future showNotification({int id = 0 , String ?title , String? body , String? payload})async{
     return notificationsPlugin.show(id, title, body, await notificationDetails());
   }
 

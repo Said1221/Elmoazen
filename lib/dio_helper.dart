@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class dioHelper{
 
-  static Dio dio;
+  static Dio ? dio;
 
   static init(){
     dio = Dio(
@@ -15,17 +15,17 @@ class dioHelper{
   }
 
   static Future<Response>getSurah({
-    String url,
+    required String url,
 })async{
-    return await dio.get(
+    return await dio!.get(
       url,
     );
   }
 
   static Future<Response>getAyat({
-  String url,
+  required String url,
 })async{
-    return await dio.get(
+    return await dio!.get(
       url
     );
   }

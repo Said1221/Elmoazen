@@ -1,4 +1,3 @@
-import 'package:conditional_builder/conditional_builder.dart';
 import 'package:elmoazen/component.dart';
 import 'package:elmoazen/cubit.dart';
 import 'package:elmoazen/dio_helper.dart';
@@ -14,11 +13,11 @@ void main() async {
   await NotificationService().initNotification();
   await dioHelper.init();
   await CacheHelper.init();
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);
+
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -38,11 +37,11 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: ConditionalBuilder(
-                condition: 1+1==2,
-                builder: (BuildContext)=>homeLayout(),
-              fallback: (BuildContext)=>Center(child: CircularProgressIndicator()),
-            ),
+            home:
+                1+1==2 ?
+                homeLayout() :
+              Center(child: CircularProgressIndicator()),
+
             debugShowCheckedModeBanner: false,
           );
           },

@@ -1,6 +1,5 @@
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:conditional_builder/conditional_builder.dart';
 import 'package:dio/dio.dart';
 import 'package:elmoazen/component.dart';
 import 'package:elmoazen/cubit.dart';
@@ -25,19 +24,26 @@ class ayat extends StatelessWidget {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                title: ConditionalBuilder(
-                    condition: state is AppGetAyatSuccessState,
-                    builder: (BuildContext)=>Text(ayaName),
-                  fallback: (BuildContext)=>Center(child: CircularProgressIndicator(color: Colors.red,)),
+                backgroundColor: Colors.white,
+                elevation: 0,
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back_ios_new_sharp),
+                  color: Colors.black,
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
                 ),
+                title:
+                 state is AppGetAyatSuccessState ?
+                    Center(child: Text(ayaName!,style: TextStyle(color: Colors.black),)) :
+                  Center(child: CircularProgressIndicator(color: Colors.red,)),
+
               ),
               body: Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: ConditionalBuilder(
-                    condition: 1+1==2,
-                    builder: (BuildContext)=>buildAyat(context),
-                  fallback: (BuildContext)=>Center(child: CircularProgressIndicator()),
-                ),
+                child: 1+1==2 ?
+                    buildAyat(context) :
+                  Center(child: CircularProgressIndicator()),
               ),
             ),
           );
@@ -51,12 +57,12 @@ class ayat extends StatelessWidget {
       itemBuilder: (context,index){
         return ListTile(
           title: Text(
-            quran.getVerse(num, index+1,verseEndSymbol: true),
+            quran.getVerse(num!, index+1,verseEndSymbol: true),
             textAlign: TextAlign.center,
           ),
         );
       },
-    itemCount: quran.getVerseCount(num),
+    itemCount: quran.getVerseCount(num!),
   );
 
 

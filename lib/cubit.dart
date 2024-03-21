@@ -62,8 +62,9 @@ class AppCubit extends Cubit<AppState>{
       city = placemarks[0].administrativeArea;
 
       emit(AppGetLocationSuccessState());
-    });
 
+      return city;
+    });
   }
 
 

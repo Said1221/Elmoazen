@@ -1,5 +1,4 @@
 
-import 'package:conditional_builder/conditional_builder.dart';
 import 'package:elmoazen/component.dart';
 import 'package:elmoazen/cubit.dart';
 import 'package:elmoazen/state.dart';
@@ -25,11 +24,11 @@ class _homeLayoutState extends State<homeLayout> {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
 
-            body: ConditionalBuilder(
-                condition: longitude != null,
-                builder: (BuildContext)=>cubit.screens[cubit.currentIndex],
-              fallback: (BuildContext)=>Center(child: CircularProgressIndicator()),
-            ),
+            body:
+                longitude != null ?
+              cubit.screens[cubit.currentIndex] :
+              Center(child: CircularProgressIndicator()),
+
 
             bottomNavigationBar: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
