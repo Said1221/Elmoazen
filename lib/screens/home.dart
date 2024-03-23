@@ -68,10 +68,10 @@ class _homeState extends State<home> {
                 // ),
 
 
-                PrayerTimes.today(myCoordinates, params).isha,
+                PrayerTimes.today(myCoordinates, params).maghrib,
                 onEnd: (){
-                  // NotificationService().showNotification(title: 'صلاه الفجر' ,
-                  //     body: 'الصلاه خيرا من النوم');
+                  NotificationService().showNotification(title: 'صلاه الفجر' ,
+                      body: 'الصلاه خيرا من النوم');
                 },
               ),
 

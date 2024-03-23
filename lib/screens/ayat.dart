@@ -24,15 +24,9 @@ class ayat extends StatelessWidget {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                backgroundColor: Colors.white,
-                elevation: 0,
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back_ios_new_sharp),
-                  color: Colors.black,
-                  onPressed: (){
-                    Navigator.pop(context);
-                  },
-                ),
+
+
+                automaticallyImplyLeading: false,
                 title:
                  state is AppGetAyatSuccessState ?
                     Center(child: Text(ayaName!,style: TextStyle(color: Colors.black),)) :
