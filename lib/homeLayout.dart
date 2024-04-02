@@ -38,7 +38,7 @@ class _homeLayoutState extends State<homeLayout> {
                 cubit.onTapItem(index);
               },
               items: [
-                BottomNavigationBarItem(icon: Image.asset('assets/kaaba.png' , scale: 20,),label: 'Qibla'),
+                BottomNavigationBarItem(icon: Image.asset('assets/beads.png' , scale: 20,),label: 'Sibha'),
                 BottomNavigationBarItem(icon: Image.asset('assets/prayer.png' , scale: 20,),label: 'Prayer'),
                 BottomNavigationBarItem(icon: Image.asset('assets/quran.png' , scale: 20,),label: 'Quran'),
               ],

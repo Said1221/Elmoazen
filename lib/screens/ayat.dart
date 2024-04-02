@@ -23,19 +23,19 @@ class ayat extends StatelessWidget {
           AppCubit cubit = AppCubit.get(context);
           return SafeArea(
             child: Scaffold(
-              appBar: AppBar(
 
 
-                automaticallyImplyLeading: false,
-                title:
-                 state is AppGetAyatSuccessState ?
-                    Center(child: Text(ayaName!,style: TextStyle(color: Colors.black),)) :
-                  Center(child: CircularProgressIndicator(color: Colors.red,)),
 
-              ),
+
+
+
+
+
+
+
               body: Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: 1+1==2 ?
+                child: state is AppGetAyatSuccessState ?
                     buildAyat(context) :
                   Center(child: CircularProgressIndicator()),
               ),
@@ -47,16 +47,38 @@ class ayat extends StatelessWidget {
   }
 
 
-  Widget buildAyat(context)=> ListView.builder(
-      itemBuilder: (context,index){
-        return ListTile(
-          title: Text(
-            quran.getVerse(num!, index+1,verseEndSymbol: true),
-            textAlign: TextAlign.center,
+  Widget buildAyat(context)=> Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("assets/ramadan.png" , scale: 20,),
+          Padding(
+            padding: const EdgeInsets.only(left: 5 , right: 5),
+            child: Text(ayaName!,style: TextStyle(color: Colors.black),),
           ),
-        );
-      },
-    itemCount: quran.getVerseCount(num!),
+          Image.asset("assets/ramadan.png" , scale: 20,),
+        ],
+      ),
+      SizedBox(
+        height: 20,
+      ),
+      Expanded(
+        child: ListView.builder(
+            itemBuilder: (context,index){
+              return
+                ListTile(
+                title: Text(
+                quran.getVerse(num!, index+1,verseEndSymbol: true),
+                textAlign: TextAlign.center,
+                  ),
+                );
+
+            },
+          itemCount: quran.getVerseCount(num!),
+        ),
+      ),
+    ],
   );
 
 

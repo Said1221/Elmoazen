@@ -79,6 +79,8 @@ flutter:
 
   assets:
     - assets/kaaba.png
+    - assets/beads.png
+    - assets/ramadan.png
     - assets/prayer.png
     - assets/quran.png
     - assets/compass.png
